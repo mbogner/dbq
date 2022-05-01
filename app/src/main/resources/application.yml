@@ -1,0 +1,52 @@
+application:
+  timezone: UTC
+  task:
+    DbQueueTask:
+      enabled: true
+      cron: "*/5 * * * * *"
+      delaySec: 4
+  jsonschemcache:
+    validitySeconds: 25
+    initialCapacity: 32
+    cleanup:
+      cron: "*/30 * * * * *"
+
+logging:
+  level:
+    root: INFO
+    dev.mbo: TRACE
+  pattern:
+    console: ${CONSOLE_LOG_PATTERN:%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr([%15.15t]){faint} %clr(%F:%L){cyan} %clr(:){faint} %m %clr({){faint}%X%clr(}){faint}%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}}
+
+spring:
+  application:
+    name: dbq
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 600000
+      max-lifetime: 3300000
+      connection-init-sql: SELECT 1
+      connection-test-query: SELECT 1
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          time_zone: UTC
+        generate_statistics: false
+      javax:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+  main:
+    banner-mode: "off"

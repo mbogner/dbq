@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: dbq-dev
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5433/db
+    username: dbuser
+    password: dbpass

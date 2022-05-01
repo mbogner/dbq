@@ -1,0 +1,12 @@
+application:
+  task:
+    DbQueueTask:
+      enabled: false
+
+spring:
+  application:
+    name: dbq-test
+  datasource:
+    url: jdbc:tc:postgresql:latest:///db
+    username: dbuser
+    password: dbpass
